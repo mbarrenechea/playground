@@ -1,45 +1,88 @@
 source 'https://rubygems.org'
 
+ruby '2.3.1'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.3'
-# Use postgresql as the database for Active Record
-gem 'pg'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'rails', '~> 4.2.4'
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+# Rails plugins
+gem 'puma'
 gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'devise', git: 'http://github.com/plataformatec/devise', branch: 'master'
+gem 'dotenv-rails', '2.1.0'
+gem 's3'
+gem 'activeadmin', git: 'http://github.com/activeadmin/activeadmin'
+gem 'active_admin_theme'
+gem 'turbolinks', '~> 5.0.0'
+gem 'active_model_serializers', '~> 0.10.0'
+gem 'roo'
+gem 'simple_form'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+# Assets pipeline
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'jquery-rails'
+gem 'sass-rails'
+gem 'autoprefixer-rails'
+gem 'backbone-syphon-rails'
+gem 'pickadate-rails', '~> 3.5', '>= 3.5.6.0'
+gem 'handlebars_assets'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
+# Email service integration
+gem 'sendgrid-ruby'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# gem 'rack-cors', require: 'rack/cors'
+gem 'sql_query'
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-normalize-css'
+  gem 'rails-assets-underscore'
+  gem 'rails-assets-backbone'
+  gem 'rails-assets-d3', '~> 3.5.17'
+  gem 'rails-assets-moment'
+  gem 'rails-assets-leaflet'
+  gem 'rails-assets-fuse'
+  gem 'rails-assets-chosen'
+  gem 'rails-assets-URIjs'
 end
 
+# Active record
+gem 'pg', '~> 0.18'
+
+group :development, :test do
+  gem 'hirb'
+  gem 'awesome_print'
+  gem 'faker'
+end
+
+group :development do
+  #gem 'spring'
+  gem 'web-console', '~> 3.0'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'annotate'
+  gem 'quiet_assets'
+  gem 'listen'
+  gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+  gem 'rubocop',     require: false
+  # Deploy
+  gem 'capistrano', '3.5'
+  gem 'capistrano-env-config'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rvm'
+  gem 'capistrano-passenger'
+end
+
+group :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'spring-commands-rspec'
+  gem 'email_spec'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'cucumber-rails', require: false
+  gem 'factory_girl_rails'
+  gem 'to_factory'
+  gem 'bullet'
+  gem 'database_cleaner'
+  gem 'timecop'
+end
