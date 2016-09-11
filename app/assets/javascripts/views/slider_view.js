@@ -27,6 +27,7 @@
 
     cache: function() {
       this.$sliderItems = this.$el.find('.js-slider-item');
+      this.$sliderArrows = this.$el.find('.js-slider-arrow');
     },
 
     listeners: function() {
@@ -57,7 +58,6 @@
 
     // CHANGE EVENTS
     changeIndex: function() {
-      var index = this.model.get('index');
 
       _.each(this.$sliderItems, function(el, i) {
         var $el = $(el);
@@ -99,11 +99,6 @@
         }
       }
     },
-
-    getX: function(i, index, differenceFromIndex, differenceFromLength) {
-      var constant = 10;
-      var constantOpened = 40;
-    }
 
   });
 
