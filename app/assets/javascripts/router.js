@@ -10,8 +10,7 @@
      * @type {Object}
      */
     routes: {
-      'map(?*query)': 'Map#index',
-      'network/:id/projects/new': 'Project#new'
+      'slider(?*query)': 'Slider#index',
     },
 
     initialize: function() {

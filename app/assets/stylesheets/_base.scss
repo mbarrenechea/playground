@@ -18,7 +18,6 @@ html {
 }
 
 body {
-  max-width: $body-max-width;
   background-color: $color-3;
 
   @media #{$mq-body-width} {

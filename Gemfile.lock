@@ -276,6 +276,8 @@ GEM
     rails-assets-d3 (3.5.17)
     rails-assets-fuse (2.5.0)
     rails-assets-jquery (3.1.0)
+    rails-assets-jquery.transit (0.9.12)
+      rails-assets-jquery
     rails-assets-leaflet (0.7.7)
     rails-assets-moment (2.14.1)
     rails-assets-normalize-css (4.2.0)
@@ -442,6 +444,7 @@ DEPENDENCIES
   rails-assets-chosen!
   rails-assets-d3 (~> 3.5.17)!
   rails-assets-fuse!
+  rails-assets-jquery.transit!
   rails-assets-leaflet!
   rails-assets-moment!
   rails-assets-normalize-css!

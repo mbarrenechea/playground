@@ -15,8 +15,8 @@
 //= require underscore
 //= require backbone
 //= require handlebars
-//= require leaflet
 //= require URIjs
+//= require jquery.transit
 
 //= require_self
 
@@ -25,11 +25,8 @@
 
 //= require_tree ./models
 //= require_tree ./collections
-//= require_tree ./presenters
 //= require_tree ./views
 //= require_tree ./controllers
-//= require_tree ./facades
-//= require_tree ./lib
 
 this.App = {
   facade: {},

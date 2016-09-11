@@ -43,6 +43,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-fuse'
   gem 'rails-assets-chosen'
   gem 'rails-assets-URIjs'
+  gem 'rails-assets-jquery.transit'
 end
 
 # Active record
