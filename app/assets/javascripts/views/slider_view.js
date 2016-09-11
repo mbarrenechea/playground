@@ -7,7 +7,7 @@
     model: new (Backbone.Model.extend({
       defaults: {
         index: 0,
-        length: 4
+        length: 5
       }
     })),
 
@@ -38,7 +38,7 @@
       e && e.preventDefault();
       var index = this.model.get('index');
       var length = this.model.get('length');
-      var newIndex = ((index + 1) > length) ? length : index + 1;
+      var newIndex = ((index + 1) > length - 1) ? length - 1 : index + 1;
 
       this.model.set('index', newIndex);
     },

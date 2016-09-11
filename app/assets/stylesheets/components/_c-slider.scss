@@ -28,6 +28,10 @@
 }
 
 .c-slider-item {
+  &.-initial {
+    transform: translate(0,0);
+  }
+
   // COLORS
   &.-color1 { background: $color-1;}
   &.-color2 { background: $color-2;}
