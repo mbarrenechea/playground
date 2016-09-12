@@ -7,13 +7,16 @@
     model: new (Backbone.Model.extend({
       defaults: {
         index: 0,
-        length: 5
+        length: 5,
+
+        stepindex: null,
+        stepslength: null,
       }
     })),
 
     events: {
-      'click .js-slider-next' : 'onClickIndex',
-      'click .js-slider-prev' : 'onClickIndex'
+      'click .js-slider-next' : 'onClickDirection',
+      'click .js-slider-prev' : 'onClickDirection'
     },
 
     initialize: function(settings) {
@@ -26,71 +29,82 @@
     },
 
     cache: function() {
+      this.$window = $(window);
       this.$document = $(document);
       this.$sliderItems = this.$el.find('.js-slider-item');
       this.$sliderArrows = this.$el.find('.js-slider-arrow');
     },
 
     listeners: function() {
+      // Model events
       this.model.on('change:index', this.changeIndex.bind(this));
-      this.$document.on('keyup.slider', this.onKeyUpIndex.bind(this))
+      this.model.on('change:stepindex', this.changeStepIndex.bind(this));
+
+      // Dom events
+      this.$window.on('resize.slider', this.changeIndex.bind(this));
     },
 
     // UI EVENTS
-    onClickIndex: function(e) {
+    onClickDirection: function(e) {
       var index = this.model.get('index');
       var length = this.model.get('length');
-      var newIndex = 0;
+
+      var stepindex = this.model.get('stepindex');
+      var stepslength = this.model.get('stepslength');
+
+      var newIndex = index;
+      var newStepIndex = stepindex;
+
       switch ($(e.currentTarget).data('direction')) {
         case 'prev':
-          newIndex = ((index - 1) < 0) ? 0 : index - 1;
+          if ((stepindex - 1) < 0) {
+            newIndex = ((index - 1) < 0) ? 0 : index - 1;
+            this.model.set('index', newIndex);
+          } else {
+            newStepIndex = stepindex - 1;
+            this.model.set('stepindex', newStepIndex);
+          }
         break;
 
         case 'next':
-          newIndex = ((index + 1) > length - 1) ? length - 1 : index + 1;
+          if (stepindex + 1 > stepslength - 1) {
+            newIndex = ((index + 1) > length - 1) ? length - 1 : index + 1;
+            this.model.set('index', newIndex);
+          } else {
+            newStepIndex = stepindex + 1;
+            this.model.set('stepindex', newStepIndex);
+          }
         break;
       }
-
-      this.model.set('index', newIndex);
     },
-
-    onKeyUpIndex: function(e) {
-      var index = this.model.get('index');
-      var length = this.model.get('length');
-      var newIndex = 0;
-      switch (e.keyCode) {
-        case 37:
-          newIndex = ((index - 1) < 0) ? 0 : index - 1;
-        break;
-
-        case 39:
-          newIndex = ((index + 1) > length - 1) ? length - 1 : index + 1;
-        break;
-      }
-
-      this.model.set('index', newIndex);
-    },
-
-    // onClickPrev: function(e) {
-    //   e && e.preventDefault();
-    //   var index = this.model.get('index');
-    //   var length = this.model.get('length');
-    //   var newIndex = ((index - 1) < 0) ? 0 : index - 1;
-    //
-    //   this.model.set('index', newIndex);
-    // },
 
 
 
 
     // CHANGE EVENTS
-    changeIndex: function() {
-
+    changeIndex: function(e) {
+      var index = this.model.get('index');
+      var time = (e && e.type === 'resize') ? 0 : 500;
       _.each(this.$sliderItems, function(el, i) {
         var $el = $(el);
-        $el.transition(this.getStyle(i));
-      }.bind(this));
+        // Save the steps of the selected index
+        if (i == index) {
+          this.$stepsItems = $el.find('.js-slider-step');
 
+          this.model.set('stepslength', this.$stepsItems.length, { silent: true });
+          this.model.set('stepindex', 0, { silent: true });
+          this.changeStepIndex();
+        }
+
+        $el.transition(this.getStyle(i), time);
+
+      }.bind(this));
+    },
+
+
+    changeStepIndex: function() {
+      this.$stepsItems.toggleClass('-active', false);
+      this.$stepsItems.eq(this.model.get('stepindex')).toggleClass('-active', true);
     },
 
 
@@ -103,7 +117,7 @@
       var length = this.model.get('length');
       var differenceFromIndex = Math.abs(i - index);
       var differenceFromLength = Math.abs(length - index);
-      var constantOpened = (differenceFromIndex == 1) ? 50 : 0;
+      var constantOpened = (differenceFromIndex == 1) ? 80 : 0;
 
       if (i === index) {
         return {
@@ -115,14 +129,14 @@
       if (i > index) {
         return {
           zIndex: differenceFromIndex,
-          x: window.innerWidth - ((differenceFromLength - differenceFromIndex) * constant) - constantOpened
+          x: this.$el.width() - ((differenceFromLength - differenceFromIndex) * constant) - constantOpened
         }
       }
 
       if (i < index) {
         return {
           zIndex: differenceFromIndex,
-          x: -window.innerWidth + ((i * constant) + constant) + constantOpened
+          x: -this.$el.width() + ((i * constant) + constant) + constantOpened
         }
       }
     },

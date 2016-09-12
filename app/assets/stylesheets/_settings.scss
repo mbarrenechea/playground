@@ -41,7 +41,12 @@ $white: #fff;
 $shadow-1: 0 7px 10px rgba(0, 0, 0, 0.1);
 $shadow-2: 0 0px 5px rgba(0, 0, 0, 0.15);
 
-$slider-constant: 60px;
+/* Header */
+$header-width: 100px;
+
+/* Slider */
+$slider-constant: 10px;
+$slider-constant-open: 80px;
 
 /* Breakpoints */
 $breakpoint-mobile-small:  320px;

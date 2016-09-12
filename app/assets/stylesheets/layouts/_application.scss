@@ -1,0 +1,17 @@
+.l-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: $dark;
+  width: $header-width;
+  height: 100%;
+}
+
+
+.l-main {
+  position: absolute;
+  top: 0;
+  left: $header-width;
+  width: calc(100% - #{$header-width});
+  height: 100%;
+}

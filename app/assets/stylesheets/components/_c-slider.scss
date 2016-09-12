@@ -21,7 +21,6 @@
       height: 100%;
       top: 0;
       left: 0;
-      transition: all .5s ease-in-out;
       transform: translate(100%,0);
     }
   }
@@ -46,7 +45,7 @@
     position: absolute;
     top: 50%;
     z-index: 10;
-    transform: translate(0,-50%);
+
     border: 1px solid $dark;
 
     button {
@@ -64,11 +63,29 @@
     }
 
     &.-left {
-      right: 10px;
+      transform: translate(50%,-50%);
+      right: (($slider-constant-open + $slider-constant)/2);
     }
 
     &.-rigth {
-      left: 10px;
+      transform: translate(-50%,-50%);
+      left: (($slider-constant-open + $slider-constant)/2);
     }
+  }
+}
+
+.c-slider-step {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  transform: translate(-50%,-50%);
+  text-transform: uppercase;
+  color: $dark;
+  font-weight: 500;
+
+  &.-active {
+    display: block;
   }
 }
