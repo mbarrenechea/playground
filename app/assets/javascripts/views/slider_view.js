@@ -48,17 +48,23 @@
 
     // UI EVENTS
     onClickDirection: function(e) {
-      var index = this.model.get('index');
-      var length = this.model.get('length');
+      // Slider index
+      var index = this.model.get('index'),
+          length = this.model.get('length');
 
-      var stepindex = this.model.get('stepindex');
-      var stepslength = this.model.get('stepslength');
+      // Step index
+      var stepindex = this.model.get('stepindex'),
+          stepslength = this.model.get('stepslength');
 
-      var newIndex = index;
-      var newStepIndex = stepindex;
+      // New index
+      var newIndex = index,
+          newStepIndex = stepindex;
 
       switch ($(e.currentTarget).data('direction')) {
         case 'prev':
+          // If it's the first step,
+          // we should move to the previous slider
+          // Otherwise previous step
           this.model.set('direction', 'prev');
           if ((stepindex - 1) < 0) {
             newIndex = ((index - 1) < 0) ? 0 : index - 1;
@@ -70,6 +76,9 @@
         break;
 
         case 'next':
+          // If it's the last step,
+          // we should move to the next slider
+          // Otherwise next step
           this.model.set('direction', 'next');
           if (stepindex + 1 > stepslength - 1) {
             newIndex = ((index + 1) > length - 1) ? length - 1 : index + 1;
@@ -93,10 +102,11 @@
       _.each(this.$sliderItems, function(el, i) {
         var $el = $(el);
 
-        // Save the steps of the selected index
-        // set the stepIndex depending on the direction
         if (i == index) {
+          // Save the steps of the selected index
           this.$stepsItems = $el.find('.js-slider-step');
+
+          // Set the stepIndex depending on the direction
           switch (this.model.get('direction')) {
             case 'prev':
               newStepIndex = this.$stepsItems.length - 1
@@ -107,9 +117,10 @@
             break;
           }
 
+          // Set the model
           this.model.set('stepslength', this.$stepsItems.length, { silent: true });
           this.model.set('stepindex', newStepIndex, { silent: true });
-          this.changeStepIndex();
+          this.model.trigger('change:stepindex');
         }
 
         $el.transition(this.getStyle(i), time);

@@ -85,6 +85,10 @@
   color: $dark;
   font-weight: 500;
 
+  &.-light {
+    color: $white;
+  }
+
   &.-active {
     display: block;
   }
