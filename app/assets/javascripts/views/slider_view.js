@@ -11,6 +11,8 @@
 
         stepindex: null,
         stepslength: null,
+
+        direction: null
       }
     })),
 
@@ -57,6 +59,7 @@
 
       switch ($(e.currentTarget).data('direction')) {
         case 'prev':
+          this.model.set('direction', 'prev');
           if ((stepindex - 1) < 0) {
             newIndex = ((index - 1) < 0) ? 0 : index - 1;
             this.model.set('index', newIndex);
@@ -67,6 +70,7 @@
         break;
 
         case 'next':
+          this.model.set('direction', 'next');
           if (stepindex + 1 > stepslength - 1) {
             newIndex = ((index + 1) > length - 1) ? length - 1 : index + 1;
             this.model.set('index', newIndex);
@@ -84,15 +88,27 @@
     // CHANGE EVENTS
     changeIndex: function(e) {
       var index = this.model.get('index');
+      var newStepIndex = 0;
       var time = (e && e.type === 'resize') ? 0 : 500;
       _.each(this.$sliderItems, function(el, i) {
         var $el = $(el);
+
         // Save the steps of the selected index
+        // set the stepIndex depending on the direction
         if (i == index) {
           this.$stepsItems = $el.find('.js-slider-step');
+          switch (this.model.get('direction')) {
+            case 'prev':
+              newStepIndex = this.$stepsItems.length - 1
+            break;
+
+            case 'next':
+              newStepIndex = 0
+            break;
+          }
 
           this.model.set('stepslength', this.$stepsItems.length, { silent: true });
-          this.model.set('stepindex', 0, { silent: true });
+          this.model.set('stepindex', newStepIndex, { silent: true });
           this.changeStepIndex();
         }
 
