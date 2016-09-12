@@ -17,8 +17,7 @@
     })),
 
     events: {
-      'click .js-slider-next' : 'onClickDirection',
-      'click .js-slider-prev' : 'onClickDirection'
+      'click .js-slider-arrow' : 'onClickDirection',
     },
 
     initialize: function(settings) {
