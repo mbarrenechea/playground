@@ -12,8 +12,8 @@
     })),
 
     events: {
-      'click .js-slider-next' : 'onClickNext',
-      'click .js-slider-prev' : 'onClickPrev'
+      'click .js-slider-next' : 'onClickIndex',
+      'click .js-slider-prev' : 'onClickIndex'
     },
 
     initialize: function(settings) {
@@ -26,32 +26,59 @@
     },
 
     cache: function() {
+      this.$document = $(document);
       this.$sliderItems = this.$el.find('.js-slider-item');
       this.$sliderArrows = this.$el.find('.js-slider-arrow');
     },
 
     listeners: function() {
       this.model.on('change:index', this.changeIndex.bind(this));
+      this.$document.on('keyup.slider', this.onKeyUpIndex.bind(this))
     },
 
     // UI EVENTS
-    onClickNext: function(e) {
-      e && e.preventDefault();
+    onClickIndex: function(e) {
       var index = this.model.get('index');
       var length = this.model.get('length');
-      var newIndex = ((index + 1) > length - 1) ? length - 1 : index + 1;
+      var newIndex = 0;
+      switch ($(e.currentTarget).data('direction')) {
+        case 'prev':
+          newIndex = ((index - 1) < 0) ? 0 : index - 1;
+        break;
+
+        case 'next':
+          newIndex = ((index + 1) > length - 1) ? length - 1 : index + 1;
+        break;
+      }
 
       this.model.set('index', newIndex);
     },
 
-    onClickPrev: function(e) {
-      e && e.preventDefault();
+    onKeyUpIndex: function(e) {
       var index = this.model.get('index');
       var length = this.model.get('length');
-      var newIndex = ((index - 1) < 0) ? 0 : index - 1;
+      var newIndex = 0;
+      switch (e.keyCode) {
+        case 37:
+          newIndex = ((index - 1) < 0) ? 0 : index - 1;
+        break;
+
+        case 39:
+          newIndex = ((index + 1) > length - 1) ? length - 1 : index + 1;
+        break;
+      }
 
       this.model.set('index', newIndex);
     },
+
+    // onClickPrev: function(e) {
+    //   e && e.preventDefault();
+    //   var index = this.model.get('index');
+    //   var length = this.model.get('length');
+    //   var newIndex = ((index - 1) < 0) ? 0 : index - 1;
+    //
+    //   this.model.set('index', newIndex);
+    // },
 
 
 

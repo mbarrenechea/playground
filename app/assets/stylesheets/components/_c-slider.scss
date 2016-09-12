@@ -44,8 +44,10 @@
 .c-slider-arrows {
   .arrow {
     position: absolute;
-    bottom: 0;
+    top: 50%;
     z-index: 10;
+    transform: translate(0,-50%);
+    border: 1px solid $dark;
 
     button {
       display: flex;
@@ -62,11 +64,11 @@
     }
 
     &.-left {
-      left: 0;
+      right: 10px;
     }
 
     &.-rigth {
-      right: 0;
+      left: 10px;
     }
   }
 }

@@ -33,9 +33,15 @@ $color-4: #3f8c3f;
 $color-5: #2a5a3a;
 $color-6: #194b32;
 
+$dark: #555;
+$white: #fff;
+
+
 /* Shadows */
 $shadow-1: 0 7px 10px rgba(0, 0, 0, 0.1);
 $shadow-2: 0 0px 5px rgba(0, 0, 0, 0.15);
+
+$slider-constant: 60px;
 
 /* Breakpoints */
 $breakpoint-mobile-small:  320px;
