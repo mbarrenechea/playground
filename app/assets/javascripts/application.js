@@ -17,6 +17,7 @@
 //= require handlebars
 //= require URIjs
 //= require jquery.transit
+//= require vivus
 
 //= require_self
 

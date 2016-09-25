@@ -1,5 +1,5 @@
 class SliderController < ApplicationController
   def index
-    @title = t 'about'
+    @title = t 'slider'
   end
 end

@@ -25,6 +25,7 @@ gem 'sass-rails'
 gem 'autoprefixer-rails'
 gem 'backbone-syphon-rails'
 gem 'pickadate-rails', '~> 3.5', '>= 3.5.6.0'
+gem 'rails_vivus'
 gem 'handlebars_assets'
 
 # Email service integration

@@ -11,6 +11,7 @@
      */
     routes: {
       'slider(?*query)': 'Slider#index',
+      'logo(?*query)': 'Logo#index',
     },
 
     initialize: function() {
