@@ -13,10 +13,12 @@
     defaults: {
       initialAngle: -90,
       speed: 250,
-      distance: 80,
+      distance: 70,
       distanceHidden: 50,
       delay: 50,
-      arc: 360
+      arc: 360,
+      elWidth: 50,
+      elHeight: 50
     },
 
     events: {
