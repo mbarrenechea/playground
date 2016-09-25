@@ -10,6 +10,15 @@
       }
     })),
 
+    defaults: {
+      initialAngle: -90,
+      speed: 250,
+      distance: 80,
+      distanceHidden: 50,
+      delay: 50,
+      arc: 360
+    },
+
     events: {
       'click .js-btn-toggle-menu' : 'onClickToggleMenu',
       'click .js-ul-toggle-menu-item' : 'onClickToggleMenuItem'
@@ -20,7 +29,7 @@
       this.cache();
       this.listeners();
 
-      this.setUlToggleMenu();
+      this.setUlToggleMenuItems();
     },
 
     cache: function() {
@@ -38,7 +47,7 @@
     changeActive: function() {
       var active = this.model.get('active');
       this.$ulToggleMenu.toggleClass('-active', active);
-      this.setUlToggleMenu();
+      this.setUlToggleMenuItems();
     },
 
     // UI EVENTS
@@ -54,24 +63,25 @@
     },
 
     // HELPERS
-    setUlToggleMenu: function(toggle) {
+    setUlToggleMenuItems: function(toggle) {
       var $li = this.$ulToggleMenu.children('li');
-      var lenght = $li.length,
-          speed = 250,
-          distance = (this.model.get('active')) ? 80 : 50;
+      var options = this.options,
+          lenght = $li.length,
+          distance = (this.model.get('active')) ? options.distance : options.distanceHidden,
+          fixAngle = ((options.arc)/lenght)/2;
 
       _.each($li, function(li, i){
-        var radians = this.getRadians(((360)/lenght) * i - 90),
+        var radians = this.getRadians(((options.arc)/lenght) * i + options.initialAngle + fixAngle),
             x = 0 + distance * Math.cos(radians),
             y = 0 + distance * Math.sin(radians),
-            delay = (this.model.get('active')) ? (50 * i) : 50 * (lenght - i);
+            delay = (this.model.get('active')) ? (options.delay * i) : options.delay * (lenght - i);
 
         $(li).transition({
           opacity: (this.model.get('active')) ? 1 : 0,
           x: x,
           y: y,
           delay: delay
-        },speed)
+        },options.speed)
 
       }.bind(this));
     },
