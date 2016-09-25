@@ -12,6 +12,7 @@
     routes: {
       'slider(?*query)': 'Slider#index',
       'logo(?*query)': 'Logo#index',
+      'circle-menu(?*query)': 'CircleMenu#index',
     },
 
     initialize: function() {
