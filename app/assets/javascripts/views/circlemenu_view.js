@@ -13,8 +13,8 @@
     defaults: {
       initialAngle: -90,
       speed: 250,
-      distance: 70,
-      distanceHidden: 50,
+      distance: 60,
+      distanceHidden: 40,
       delay: 50,
       arc: 360,
       elWidth: 50,
@@ -38,6 +38,7 @@
       this.$window = $(window);
       this.$document = $(document);
 
+      this.$btnToggleMenu = this.$el.find('.js-btn-toggle-menu');
       this.$ulToggleMenu = this.$el.find('.js-ul-toggle-menu');
     },
 
@@ -48,7 +49,11 @@
     // MODEL EVENTS
     changeActive: function() {
       var active = this.model.get('active');
+      // Set classes
+      this.$btnToggleMenu.toggleClass('-active', active);
       this.$ulToggleMenu.toggleClass('-active', active);
+
+      // Set menu items
       this.setUlToggleMenuItems();
     },
 
