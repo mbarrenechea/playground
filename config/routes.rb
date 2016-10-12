@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   # Circle menu
   get 'circle-menu' => 'circlemenu#index'
 
+  # Circle menu
+  get 'trigonometry' => 'trigonometry#index'
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
